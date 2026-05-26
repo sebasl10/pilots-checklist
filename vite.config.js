@@ -9,9 +9,9 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['icons/*.png'],
       manifest: {
-        name: 'C-208B Pilot Checklist',
+        name: 'Lista de Verificación C-208B',
         short_name: 'Checklist',
-        description: 'C-208B G-1000 Pilot Checklist — FAC',
+        description: 'Lista de Verificación C-208B G-1000 — FAC',
         theme_color: '#0B1423',
         background_color: '#0B1423',
         display: 'standalone',
