@@ -44,7 +44,7 @@ export default function SectionCard({ section }) {
         {subtitle && (
           <span className="text-xs text-slate-500 block mt-0.5 uppercase tracking-wider">{subtitle}</span>
         )}
-        <span className="text-xs text-slate-500 mt-1 block">{itemCount} items</span>
+        <span className="text-xs text-slate-500 mt-1 block">{itemCount} ítems</span>
       </div>
 
       <ChevronRight

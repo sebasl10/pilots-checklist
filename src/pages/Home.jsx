@@ -11,7 +11,7 @@ function GroupLabel({ label, count }) {
   return (
     <div className="flex items-center gap-3 mb-3">
       <span className="text-[11px] font-bold tracking-[0.15em] uppercase text-amber-500">{label}</span>
-      <span className="text-[11px] text-slate-600 font-medium">{count} sections</span>
+      <span className="text-[11px] text-slate-600 font-medium">{count} secciones</span>
       <div className="flex-1 h-px bg-white/5" />
     </div>
   )
@@ -30,7 +30,7 @@ export default function Home() {
               C-208B G-1000
             </h1>
             <p className="text-[11px] text-slate-500 tracking-widest uppercase">
-              Pilot's Checklist · FAC
+              Lista de Verificación · FAC
             </p>
           </div>
           <div className="ml-auto text-right">
@@ -42,7 +42,7 @@ export default function Home() {
 
       <main className="flex-1 px-4 pt-5 pb-8 max-w-2xl mx-auto w-full">
         <section className="mb-7">
-          <GroupLabel label="Pré-Vol" count={preflight.length} />
+          <GroupLabel label="Pre-Vuelo" count={preflight.length} />
           <div className="flex flex-col gap-2">
             {preflight.map(section => (
               <SectionCard key={section.id} section={section} />
@@ -51,7 +51,7 @@ export default function Home() {
         </section>
 
         <section className="mb-7">
-          <GroupLabel label="Vol" count={flight.length} />
+          <GroupLabel label="Vuelo" count={flight.length} />
           <div className="flex flex-col gap-2">
             {flight.map(section => (
               <SectionCard key={section.id} section={section} />
@@ -60,7 +60,7 @@ export default function Home() {
         </section>
 
         <div className="mt-6 p-4 rounded-xl bg-[#111D33] border border-white/5">
-          <p className="text-[11px] text-slate-500 font-semibold uppercase tracking-widest mb-3">Légende</p>
+          <p className="text-[11px] text-slate-500 font-semibold uppercase tracking-widest mb-3">Leyenda</p>
           <div className="grid grid-cols-1 gap-2">
             {Object.entries(colorLegend).map(([key, { label, color }]) => (
               <div key={key} className="flex items-center gap-2.5">

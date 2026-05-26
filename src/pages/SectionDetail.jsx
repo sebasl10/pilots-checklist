@@ -19,9 +19,9 @@ export default function SectionDetail() {
   if (!section) {
     return (
       <div className="min-h-dvh flex flex-col items-center justify-center gap-4">
-        <p className="text-slate-400">Section introuvable.</p>
+        <p className="text-slate-400">Sección no encontrada.</p>
         <button onClick={() => navigate('/')} className="text-amber-400 text-sm font-semibold">
-          ← Retour
+          ← Volver
         </button>
       </div>
     )
@@ -40,10 +40,10 @@ export default function SectionDetail() {
           <button
             onClick={() => navigate('/')}
             className="flex items-center gap-1 px-2 py-2 rounded-lg text-amber-400 active:bg-white/10 transition-colors min-w-[44px] min-h-[44px] justify-center"
-            aria-label="Retour à l'accueil"
+            aria-label="Volver al inicio"
           >
             <ChevronLeft size={22} />
-            <span className="text-sm font-medium hidden sm:block">Retour</span>
+            <span className="text-sm font-medium hidden sm:block">Volver</span>
           </button>
 
           <div className="flex-1 min-w-0">
@@ -73,7 +73,7 @@ export default function SectionDetail() {
             )}
           </div>
 
-          <span className="text-[11px] text-slate-600 shrink-0 pr-2">{itemCount} items</span>
+          <span className="text-[11px] text-slate-600 shrink-0 pr-2">{itemCount} ítems</span>
         </div>
       </header>
 
@@ -81,8 +81,8 @@ export default function SectionDetail() {
         <div className="border-b border-white/5">
           <div className="flex items-center px-4 py-2 gap-6">
             <span className="text-[11px] font-bold text-slate-600 uppercase tracking-widest w-7 shrink-0">#</span>
-            <span className="text-[11px] font-bold text-slate-600 uppercase tracking-widest flex-1">Élément</span>
-            <span className="text-[11px] font-bold text-slate-600 uppercase tracking-widest">Action</span>
+            <span className="text-[11px] font-bold text-slate-600 uppercase tracking-widest flex-1">Elemento</span>
+            <span className="text-[11px] font-bold text-slate-600 uppercase tracking-widest">Acción</span>
           </div>
         </div>
 
@@ -94,7 +94,7 @@ export default function SectionDetail() {
 
         {usedIndicators.length > 0 && (
           <div className="mx-4 my-6 p-4 rounded-xl bg-[#111D33] border border-white/5">
-            <p className="text-[11px] text-slate-500 font-bold uppercase tracking-widest mb-3">Légende</p>
+            <p className="text-[11px] text-slate-500 font-bold uppercase tracking-widest mb-3">Leyenda</p>
             <div className="flex flex-col gap-2">
               {usedIndicators.map(key => (
                 <div key={key} className="flex items-center gap-2.5">
