@@ -5,11 +5,11 @@
     "od": "O.D. GACAS XXX"
   },
   "colorLegend": {
-    "ext-pwr": { "label": "EXTERNAL PWR START ITEMS", "color": "#EAB308" },
-    "flir": { "label": "FLIR ITEMS", "color": "#F97316" },
+    "ext-pwr": { "label": "EXTERNAL PWR START ITEMS", "color": "#22C55E" },
+    "flir": { "label": "FLIR ITEMS", "color": "#EAB308" },
     "medevac": { "label": "MEDEVAC ITEMS", "color": "#EF4444" },
     "ads80": { "label": "ADS-80 ITEMS", "color": "#3B82F6" },
-    "pbn": { "label": "PBN OPERATIONS ITEMS", "color": "#EC4899" }
+    "pbn": { "label": "PBN OPERATIONS ITEMS", "color": "#A855F7" }
   },
   "sections": [
     {
@@ -58,7 +58,7 @@
         { "number": "37", "name": "Test Switch",                         "action": "UP-DOWN",        "indicator": null },
         { "number": "38", "name": "Fuel Totalizer",                      "action": "SET",            "indicator": null },
         { "number": "39", "name": "FLIR CB (NEE Console)",               "action": "OUT",            "indicator": "flir" },
-        { "number": "40", "name": "FRIDGE Circuit Break",                "action": "OUT",            "indicator": "flir" }
+        { "number": "40", "name": "FRIDGE Circuit Break",                "action": "OUT",            "indicator": "medevac" }
       ]
     },
     {
@@ -70,7 +70,7 @@
       "items": [
         { "number": "1", "name": "ATC Clearance",    "action": "CALL",            "indicator": null },
         { "number": "2", "name": "Beacon Light",     "action": "ON",              "indicator": null },
-        { "number": "3", "name": "External Pwr Switch", "action": "STARTER",     "indicator": null },
+        { "number": "3", "name": "External Pwr Switch", "action": "STARTER",     "indicator": "ext-pwr" },
         { "number": "4", "name": "Fuel Boost Switch","action": "NORMAL then ON",  "indicator": null },
         { "number": "5", "name": "Propeller Area",   "action": "CLEAR",           "indicator": null },
         { "number": "6", "name": "Starter Switch",   "action": "START",           "indicator": null }
@@ -233,7 +233,7 @@
       "subtitle": "C-208B FLIR / ADS80",
       "order": 11,
       "group": "flight",
-      "badge": "flir",
+      "badge": ["flir", "ads80"],
       "items": [
         { "number": "1",  "name": "Target Briefing",       "action": "COMPLETE",     "indicator": null },
         { "number": "2",  "name": "Propeller RPM Lever",   "action": "SET",          "indicator": null },
@@ -242,8 +242,8 @@
         { "number": "5",  "name": "Airspeed",              "action": "AS REQUIRED",  "indicator": null },
         { "number": "6",  "name": "Altitude",              "action": "MINIMUM 4000 AGL", "indicator": null },
         { "number": "7",  "name": "Exterior Lights",       "action": "AS REQUIRED",  "indicator": null },
-        { "number": "8",  "name": "Camera Master Switch",  "action": "ON",           "indicator": null },
-        { "number": "9",  "name": "Camera Doors",          "action": "OPEN",         "indicator": "flir" },
+        { "number": "8",  "name": "Camera Master Switch",  "action": "ON",           "indicator": "ads80" },
+        { "number": "9",  "name": "Camera Doors",          "action": "OPEN",         "indicator": "ads80" },
         { "number": "10", "name": "Transponder",           "action": "AS REQUIRED",  "indicator": null },
         { "number": "11", "name": "Radar",                 "action": "STANDBY",      "indicator": null },
         { "number": "12", "name": "Frequencies NAV-COM",   "action": "SET",          "indicator": null },
@@ -258,7 +258,7 @@
       "subtitle": "C-208B FLIR / ADS80",
       "order": 12,
       "group": "flight",
-      "badge": "flir",
+      "badge": ["flir", "ads80"],
       "items": [
         { "number": "1",  "name": "Exit Route",            "action": "SET on PFD-MFD",    "indicator": null },
         { "number": "2",  "name": "Altitude",              "action": "SET",               "indicator": null },
@@ -268,8 +268,8 @@
         { "number": "6",  "name": "Propeller RPM Lever",   "action": "SET",               "indicator": null },
         { "number": "7",  "name": "Flaps Selector",        "action": "UP (VISUAL CHECK)", "indicator": null },
         { "number": "8",  "name": "Exterior Lights",       "action": "AS REQUIRED",       "indicator": null },
-        { "number": "9",  "name": "Camera Doors",          "action": "CLOSE",             "indicator": "flir" },
-        { "number": "10", "name": "Camera Master Switch",  "action": "OFF",               "indicator": null },
+        { "number": "9",  "name": "Camera Doors",          "action": "CLOSE",             "indicator": "ads80" },
+        { "number": "10", "name": "Camera Master Switch",  "action": "OFF",               "indicator": "ads80" },
         { "number": "11", "name": "ATC Radio Contact",     "action": "CALL",              "indicator": null }
       ]
     },

@@ -28,7 +28,7 @@ export default function SectionDetail() {
   }
 
   const { title, subtitle, badge, items, order } = section
-  const badgeColor = badge ? colorLegend[badge]?.color : null
+  const badges = badge ? (Array.isArray(badge) ? badge : [badge]) : []
 
   const usedIndicators = [...new Set(items.map(i => i.indicator).filter(Boolean))]
   const itemCount = items.filter(i => !i.isSubItem).length
@@ -54,19 +54,19 @@ export default function SectionDetail() {
               <h1 className="text-[15px] font-bold text-slate-100 tracking-wide uppercase leading-tight truncate">
                 {title}
               </h1>
-              {badgeColor && (
-                <span
-                  className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded uppercase tracking-wider shrink-0"
-                  style={{
-                    backgroundColor: badgeColor + '22',
-                    color: badgeColor,
-                    border: `1px solid ${badgeColor}44`,
-                  }}
-                >
-                  <span className="w-1.5 h-1.5 rounded-sm inline-block" style={{ backgroundColor: badgeColor }} />
-                  {badge?.toUpperCase()}
-                </span>
-              )}
+              {badges.map(key => {
+                const color = colorLegend[key]?.color
+                return color ? (
+                  <span
+                    key={key}
+                    className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded uppercase tracking-wider shrink-0"
+                    style={{ backgroundColor: color + '22', color, border: `1px solid ${color}44` }}
+                  >
+                    <span className="w-1.5 h-1.5 rounded-sm inline-block" style={{ backgroundColor: color }} />
+                    {key.toUpperCase()}
+                  </span>
+                ) : null
+              })}
             </div>
             {subtitle && (
               <p className="text-[11px] text-slate-500 uppercase tracking-wider">{subtitle}</p>

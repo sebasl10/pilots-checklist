@@ -14,8 +14,7 @@ export default function SectionCard({ section }) {
   const { id, title, subtitle, order, badge, items, group } = section
 
   const itemCount = items.filter(i => !i.isSubItem).length
-  const badgeColor = badge ? colorLegend[badge]?.color : null
-  const badgeLabel = badge ? colorLegend[badge]?.label : null
+  const badges = badge ? (Array.isArray(badge) ? badge : [badge]) : []
 
   return (
     <button
@@ -31,15 +30,19 @@ export default function SectionCard({ section }) {
           <span className="text-[15px] font-semibold text-slate-100 leading-tight tracking-wide uppercase">
             {title}
           </span>
-          {badgeColor && (
-            <span
-              className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded uppercase tracking-wider"
-              style={{ backgroundColor: badgeColor + '22', color: badgeColor, border: `1px solid ${badgeColor}44` }}
-            >
-              <span className="w-1.5 h-1.5 rounded-sm inline-block" style={{ backgroundColor: badgeColor }} />
-              {badge?.toUpperCase()}
-            </span>
-          )}
+          {badges.map(key => {
+            const color = colorLegend[key]?.color
+            return color ? (
+              <span
+                key={key}
+                className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded uppercase tracking-wider"
+                style={{ backgroundColor: color + '22', color, border: `1px solid ${color}44` }}
+              >
+                <span className="w-1.5 h-1.5 rounded-sm inline-block" style={{ backgroundColor: color }} />
+                {key.toUpperCase()}
+              </span>
+            ) : null
+          })}
         </div>
         {subtitle && (
           <span className="text-xs text-slate-500 block mt-0.5 uppercase tracking-wider">{subtitle}</span>
