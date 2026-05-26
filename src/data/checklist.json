@@ -1,0 +1,385 @@
+{
+  "meta": {
+    "aircraft": "C-208B G-1000",
+    "revision": "Rev. 20 / 30-SEPT-2025",
+    "od": "O.D. GACAS XXX"
+  },
+  "colorLegend": {
+    "ext-pwr": { "label": "EXTERNAL PWR START ITEMS", "color": "#EAB308" },
+    "flir": { "label": "FLIR ITEMS", "color": "#F97316" },
+    "medevac": { "label": "MEDEVAC ITEMS", "color": "#EF4444" },
+    "ads80": { "label": "ADS-80 ITEMS", "color": "#3B82F6" },
+    "pbn": { "label": "PBN OPERATIONS ITEMS", "color": "#EC4899" }
+  },
+  "sections": [
+    {
+      "id": "before-starting-engine",
+      "title": "BEFORE STARTING ENGINE",
+      "order": 1,
+      "group": "preflight",
+      "badge": null,
+      "items": [
+        { "number": "1",  "name": "Preflight",                           "action": "COMPLETE",       "indicator": null },
+        { "number": "2",  "name": "Parking Brake",                       "action": "SET",            "indicator": null },
+        { "number": "3",  "name": "Control Locks",                       "action": "REMOVED",        "indicator": null },
+        { "number": "4",  "name": "Standby PWR Switch",                  "action": "OFF",            "indicator": null },
+        { "number": "5",  "name": "Ignition Switch",                     "action": "NORM",           "indicator": null },
+        { "number": "6",  "name": "Starter Switch",                      "action": "OFF",            "indicator": null },
+        { "number": "7",  "name": "Fuel Boost Switch",                   "action": "OFF",            "indicator": null },
+        { "number": "8",  "name": "ADM 2.0",                             "action": "OFF",            "indicator": null },
+        { "number": "9",  "name": "Circuit Breakers",                    "action": "CHECK IN",       "indicator": null },
+        { "number": "10", "name": "Power Outlet",                        "action": "OFF",            "indicator": null },
+        { "number": "11", "name": "Pitot Static Heat",                   "action": "OFF",            "indicator": null },
+        { "number": "12", "name": "Stall Heat",                          "action": "OFF",            "indicator": null },
+        { "number": "13", "name": "TKS Primary Switch",                  "action": "OFF",            "indicator": null },
+        { "number": "14", "name": "TKS Back Up",                         "action": "OFF",            "indicator": null },
+        { "number": "15", "name": "Alt Static Air",                      "action": "OFF",            "indicator": null },
+        { "number": "16", "name": "Inertial Separator",                  "action": "SET",            "indicator": null },
+        { "number": "17", "name": "Stby Flap Motor Switch",              "action": "GUARDED NORM",   "indicator": null },
+        { "number": "18", "name": "Oxygen",                              "action": "OFF",            "indicator": null },
+        { "number": "19", "name": "Fuel Tank Selectors",                 "action": "BOTH ON",        "indicator": null },
+        { "number": "20", "name": "Firewall Shutoff",                    "action": "PUSH IN",        "indicator": null },
+        { "number": "21", "name": "Fuel Shutoff",                        "action": "PUSH IN",        "indicator": null },
+        { "number": "22", "name": "Quadrant Friction Lock",              "action": "AS REQUIRED",    "indicator": null },
+        { "number": "23", "name": "Fuel Condition Lever",                "action": "CUTOFF",         "indicator": null },
+        { "number": "24", "name": "Propeller RPM Lever",                 "action": "MAX",            "indicator": null },
+        { "number": "25", "name": "Power Lever",                         "action": "IDLE",           "indicator": null },
+        { "number": "26", "name": "Emergency Pwr Lever",                 "action": "NORMAL",         "indicator": null },
+        { "number": "27", "name": "Cabin Heat Mix Air",                  "action": "FLT-PUSH",       "indicator": null },
+        { "number": "28", "name": "Bleed Air Heat Switch",               "action": "OFF",            "indicator": null },
+        { "number": "29", "name": "Air Conditioning",                    "action": "OFF",            "indicator": null },
+        { "number": "30", "name": "Battery Switch",                      "action": "ON",             "indicator": null },
+        { "number": "31", "name": "Nav Lights",                          "action": "ON",             "indicator": null },
+        { "number": "32", "name": "Avionics 1",                          "action": "ON",             "indicator": null },
+        { "number": "33", "name": "Bus Volts",                           "action": "CHECK",          "indicator": null },
+        { "number": "34", "name": "Flaps Selector",                      "action": "UP",             "indicator": null },
+        { "number": "35", "name": "External Pwr Switch",                 "action": "BUS",            "indicator": "ext-pwr" },
+        { "number": "36", "name": "Bus Volts",                           "action": "26-28.5 V",      "indicator": "ext-pwr" },
+        { "number": "37", "name": "Test Switch",                         "action": "UP-DOWN",        "indicator": null },
+        { "number": "38", "name": "Fuel Totalizer",                      "action": "SET",            "indicator": null },
+        { "number": "39", "name": "FLIR CB (NEE Console)",               "action": "OUT",            "indicator": "flir" },
+        { "number": "40", "name": "FRIDGE Circuit Break",                "action": "OUT",            "indicator": "flir" }
+      ]
+    },
+    {
+      "id": "starting-engine",
+      "title": "STARTING ENGINE",
+      "order": 2,
+      "group": "preflight",
+      "badge": null,
+      "items": [
+        { "number": "1", "name": "ATC Clearance",    "action": "CALL",            "indicator": null },
+        { "number": "2", "name": "Beacon Light",     "action": "ON",              "indicator": null },
+        { "number": "3", "name": "External Pwr Switch", "action": "STARTER",     "indicator": null },
+        { "number": "4", "name": "Fuel Boost Switch","action": "NORMAL then ON",  "indicator": null },
+        { "number": "5", "name": "Propeller Area",   "action": "CLEAR",           "indicator": null },
+        { "number": "6", "name": "Starter Switch",   "action": "START",           "indicator": null }
+      ]
+    },
+    {
+      "id": "after-starting-engine",
+      "title": "AFTER-STARTING ENGINE",
+      "order": 3,
+      "group": "preflight",
+      "badge": null,
+      "items": [
+        { "number": "1",  "name": "Starter Switch",                    "action": "OFF",             "indicator": null },
+        { "number": "2",  "name": "Fuel Boost Switch",                 "action": "NORM",            "indicator": null },
+        { "number": "3",  "name": "External Pwr Switch",               "action": "GUARDED OFF",     "indicator": "ext-pwr" },
+        { "number": "4",  "name": "Standby PWR Switch",                "action": "ON",              "indicator": null },
+        { "number": "5",  "name": "Avionics 2",                        "action": "ON",              "indicator": null },
+        { "number": "6",  "name": "Air Conditioning",                  "action": "VENTILATE",       "indicator": null },
+        { "number": "7",  "name": "Engine Indicator System",           "action": "CHECK",           "indicator": null },
+        { "number": "8",  "name": "APU",                               "action": "DISCONNECT",      "indicator": "ext-pwr" },
+        { "number": "9",  "name": "Camillas AF/FW",                    "action": "ON",              "indicator": "medevac" },
+        { "number": "10", "name": "Fuel Balance",                      "action": "CHECK",           "indicator": null },
+        { "number": "11", "name": "Autopilot",                         "action": "CHECK AUTOTEST",  "indicator": null },
+        { "number": "12", "name": "PFD CAS messages",                  "action": "CLEAR (No Alerts)","indicator": null },
+        { "number": "13", "name": "Wheel Chocks / Tail Support (x2)",  "action": "REMOVED",         "indicator": null }
+      ]
+    },
+    {
+      "id": "before-taxiing",
+      "title": "BEFORE TAXIING",
+      "order": 4,
+      "group": "preflight",
+      "badge": null,
+      "items": [
+        { "number": "1",  "name": "ADM 2.0",                           "action": "ON",                        "indicator": null },
+        { "number": "2",  "name": "Navigation Database",               "action": "CHECK VALIDITY",            "indicator": null },
+        { "number": "3",  "name": "Radar",                             "action": "SET STANDBY",               "indicator": null },
+        { "number": "4",  "name": "Flir Screen",                       "action": "VERIFY",                    "indicator": "flir" },
+        { "number": "5",  "name": "Takeoff Briefing",                  "action": "COMPLETE",                  "indicator": null },
+        { "number": "6",  "name": "Frequencies (NAV-COM)",             "action": "SET FOR DEPARTURE",         "indicator": null },
+        { "number": "7",  "name": "Altitude Selector (AFCS)",          "action": "SET",                       "indicator": null },
+        { "number": "8",  "name": "PFD 1 / 2 CDI Source",             "action": "SET FOR DEPARTURE",         "indicator": null },
+        { "number": "9",  "name": "Vspeeds (Vglide, Vr, Vx, Vy)",    "action": "SET",                       "indicator": null },
+        { "number": "10", "name": "MFD Flight Plan",                   "action": "VERIFY WPT/CRS/ALT",        "indicator": null },
+        { "number": "11", "name": "CDI Scale",                         "action": "CHECK AUTO/PFD \"DPRT\"",   "indicator": "pbn" },
+        { "number": "12", "name": "EPU",                               "action": "VERIFY ACCURACY",           "indicator": "pbn" },
+        { "number": "13", "name": "Raim Prediction",                   "action": "CHECK AVAILABILITY",        "indicator": "pbn" },
+        { "number": "14", "name": "TTV",                               "action": "ON BOARD",                  "indicator": null },
+        { "number": "15", "name": "Wheel Chocks / Tail Support (x2)", "action": "ON BOARD",                  "indicator": null },
+        { "number": "16", "name": "Doors",                             "action": "CLOSED",                    "indicator": null },
+        { "number": "17", "name": "Cargo Pods",                        "action": "CLOSED AND LOCKED",         "indicator": null },
+        { "number": "18", "name": "Seat Belts",                        "action": "ADJUST",                    "indicator": null },
+        { "number": "19", "name": "No Smoke / Seat Belts",             "action": "ON",                        "indicator": null },
+        { "number": "20", "name": "Controls",                          "action": "FREE",                      "indicator": null },
+        { "number": "21", "name": "Quadrant Friction Lock",            "action": "ADJUST FOR FLIGHT",         "indicator": null },
+        { "number": "22", "name": "Flight Instruments",                "action": "CHECK",                     "indicator": null },
+        { "number": "23", "name": "Standby Flight Instruments",        "action": "CHECK",                     "indicator": null }
+      ]
+    },
+    {
+      "id": "taxiing",
+      "title": "TAXIING",
+      "order": 5,
+      "group": "preflight",
+      "badge": null,
+      "items": [
+        { "number": "1", "name": "Sterile Cockpit", "action": "BEGIN",               "indicator": null },
+        { "number": "2", "name": "ATC Clearance",   "action": "CALL",                "indicator": null },
+        { "number": "3", "name": "Taxi Lights",      "action": "ON",                  "indicator": null },
+        { "number": "4", "name": "Parking Brake",   "action": "RELEASE",             "indicator": null },
+        { "number": "5", "name": "Brakes",           "action": "CHECK (LEFT / RIGHT)","indicator": null }
+      ]
+    },
+    {
+      "id": "systems",
+      "title": "SYSTEMS",
+      "order": 6,
+      "group": "preflight",
+      "badge": null,
+      "items": [
+        { "number": "1", "name": "Inertial Separator",         "action": "CHECK", "indicator": null },
+        { "number": "2", "name": "Standby Pwr",                "action": "CHECK", "indicator": null },
+        { "number": "3", "name": "Overspeed Governor",         "action": "CHECK", "indicator": null },
+        { "number": "4", "name": "Traffic Alerting System",    "action": "CHECK", "indicator": null },
+        { "number": "5", "name": "Manual Electric Pitch Trim", "action": "CHECK", "indicator": null }
+      ]
+    },
+    {
+      "id": "before-takeoff",
+      "title": "BEFORE TAKEOFF",
+      "order": 7,
+      "group": "preflight",
+      "badge": null,
+      "items": [
+        { "number": "1", "name": "TAWS",                "action": "AS REQUIRED",  "indicator": null },
+        { "number": "2", "name": "Bleed Air Heat",      "action": "OFF",           "indicator": null },
+        { "number": "3", "name": "Flaps Selector",      "action": "AS REQUIRED",  "indicator": null },
+        { "number": "4", "name": "Propeller RPM Lever", "action": "MAX",           "indicator": null },
+        { "number": "5", "name": "Trims (x3)",          "action": "SET",           "indicator": null },
+        { "number": "6", "name": "Torque for Takeoff",  "action": "CHECK on QRH", "indicator": null },
+        { "number": "8", "name": "ATC Clearance",       "action": "CALL",          "indicator": null }
+      ]
+    },
+    {
+      "id": "line-up",
+      "title": "LINE-UP",
+      "order": 8,
+      "group": "preflight",
+      "badge": null,
+      "items": [
+        { "number": "1", "name": "Pilot Window",        "action": "CLOSED AND LOCKED", "indicator": null },
+        { "number": "2", "name": "Fuel Condition Lever","action": "HIGH IDLE",          "indicator": null },
+        { "number": "3", "name": "Air Conditioner",     "action": "AS REQUIRED",        "indicator": null },
+        { "number": "4", "name": "Fuel Tank Selectors", "action": "BOTH ON",            "indicator": null },
+        { "number": "5", "name": "GA-HDG-FD",           "action": "SET",                "indicator": null },
+        { "number": "6", "name": "Runway",              "action": "CHECK CLEAR",        "indicator": null },
+        { "number": "7", "name": "ATC Clearance",       "action": "CALL",               "indicator": null },
+        { "number": "8", "name": "Ignition Switch",     "action": "ON",                 "indicator": null },
+        { "number": "9", "name": "Lights (TAXI or LDG)","action": "SET",               "indicator": null }
+      ]
+    },
+    {
+      "id": "climb",
+      "title": "CLIMB",
+      "order": 9,
+      "group": "flight",
+      "badge": null,
+      "items": [
+        { "number": "1",   "name": "Lights",                     "action": "AS REQUIRED",       "indicator": null },
+        { "number": "2",   "name": "Ignition Switch",            "action": "NORM",              "indicator": null },
+        { "number": "3",   "name": "Ice Protection Systems",     "action": "AS REQUIRED",       "indicator": null },
+        { "number": "3.1", "name": "P/S and Stall heat / TKS",  "action": null,                "indicator": null, "isSubItem": true },
+        { "number": "4",   "name": "Flaps Selector",             "action": "UP (VISUAL CHECK)", "indicator": null },
+        { "number": "5",   "name": "Inertial Separator",         "action": "AS REQUIRED",       "indicator": null },
+        { "number": "6",   "name": "Power Lever",                "action": "SET FOR CLIMB",     "indicator": null },
+        { "number": "7",   "name": "TAWS",                       "action": "CHECK ACTIVE",      "indicator": null },
+        { "number": "8",   "name": "Sterile Cockpit",            "action": "FINISH (3000 Ft AGL)", "indicator": null }
+      ]
+    },
+    {
+      "id": "cruise",
+      "title": "CRUISE",
+      "order": 10,
+      "group": "flight",
+      "badge": null,
+      "items": [
+        { "number": "1",   "name": "Power Lever",               "action": "SET FOR CRUISE", "indicator": null },
+        { "number": "2",   "name": "Propeller RPM Lever",       "action": "SET",            "indicator": null },
+        { "number": "3",   "name": "Ice Protection Systems",    "action": "AS REQUIRED",    "indicator": null },
+        { "number": "3.1", "name": "P/S and Stall heat / TKS", "action": null,             "indicator": null, "isSubItem": true },
+        { "number": "4",   "name": "Engine Indicator System",  "action": "CHECK",          "indicator": null },
+        { "number": "5",   "name": "Fuel Balance",             "action": "MONITOR",        "indicator": null },
+        { "number": "6",   "name": "Oxygen",                   "action": "AS REQUIRED",    "indicator": null },
+        { "number": "7",   "name": "No Smoke / Seat Belts",    "action": "AS REQUIRED",    "indicator": null }
+      ]
+    },
+    {
+      "id": "target",
+      "title": "TARGET",
+      "subtitle": "C-208B FLIR / ADS80",
+      "order": 11,
+      "group": "flight",
+      "badge": "flir",
+      "items": [
+        { "number": "1",  "name": "Target Briefing",       "action": "COMPLETE",     "indicator": null },
+        { "number": "2",  "name": "Propeller RPM Lever",   "action": "SET",          "indicator": null },
+        { "number": "3",  "name": "Flaps Selector",        "action": "AS REQUIRED",  "indicator": null },
+        { "number": "4",  "name": "Power Lever",           "action": "SET",          "indicator": null },
+        { "number": "5",  "name": "Airspeed",              "action": "AS REQUIRED",  "indicator": null },
+        { "number": "6",  "name": "Altitude",              "action": "MINIMUM 4000 AGL", "indicator": null },
+        { "number": "7",  "name": "Exterior Lights",       "action": "AS REQUIRED",  "indicator": null },
+        { "number": "8",  "name": "Camera Master Switch",  "action": "ON",           "indicator": null },
+        { "number": "9",  "name": "Camera Doors",          "action": "OPEN",         "indicator": "flir" },
+        { "number": "10", "name": "Transponder",           "action": "AS REQUIRED",  "indicator": null },
+        { "number": "11", "name": "Radar",                 "action": "STANDBY",      "indicator": null },
+        { "number": "12", "name": "Frequencies NAV-COM",   "action": "SET",          "indicator": null },
+        { "number": "13", "name": "Escape HDG",            "action": "SET",          "indicator": null },
+        { "number": "14", "name": "BINGO",                 "action": "CALCULATE",    "indicator": null },
+        { "number": "15", "name": "ATC Radio Contact",     "action": "CALL",         "indicator": null }
+      ]
+    },
+    {
+      "id": "exit-target",
+      "title": "EXIT TARGET",
+      "subtitle": "C-208B FLIR / ADS80",
+      "order": 12,
+      "group": "flight",
+      "badge": "flir",
+      "items": [
+        { "number": "1",  "name": "Exit Route",            "action": "SET on PFD-MFD",    "indicator": null },
+        { "number": "2",  "name": "Altitude",              "action": "SET",               "indicator": null },
+        { "number": "3",  "name": "Radar",                 "action": "AS REQUIRED",       "indicator": null },
+        { "number": "4",  "name": "Transponder",           "action": "AS REQUIRED",       "indicator": null },
+        { "number": "5",  "name": "Power Lever",           "action": "SET",               "indicator": null },
+        { "number": "6",  "name": "Propeller RPM Lever",   "action": "SET",               "indicator": null },
+        { "number": "7",  "name": "Flaps Selector",        "action": "UP (VISUAL CHECK)", "indicator": null },
+        { "number": "8",  "name": "Exterior Lights",       "action": "AS REQUIRED",       "indicator": null },
+        { "number": "9",  "name": "Camera Doors",          "action": "CLOSE",             "indicator": "flir" },
+        { "number": "10", "name": "Camera Master Switch",  "action": "OFF",               "indicator": null },
+        { "number": "11", "name": "ATC Radio Contact",     "action": "CALL",              "indicator": null }
+      ]
+    },
+    {
+      "id": "descent",
+      "title": "DESCENT",
+      "order": 13,
+      "group": "flight",
+      "badge": null,
+      "items": [
+        { "number": "1",    "name": "Approach Briefing",           "action": "COMPLETE",               "indicator": null },
+        { "number": "2",    "name": "Altimeter Setting",           "action": "SET",                    "indicator": null },
+        { "number": "3",    "name": "MFD FlightPlan",              "action": "VERIFY WPT/CRS/ALT",     "indicator": null },
+        { "number": "4",    "name": "CDI Scale",                   "action": "CHECK AUTO/PFD AS REQUIRED", "indicator": "pbn" },
+        { "number": "5",    "name": "EPU",                         "action": "VERIFY ACCURACY",        "indicator": "pbn" },
+        { "number": "6",    "name": "Raim Prediction",             "action": "CHECK AVAILABILITY",     "indicator": "pbn" },
+        { "number": "7",    "name": "PFD 1/2 CDI",                "action": "SET FOR ARRIVAL",        "indicator": null },
+        { "number": "8",    "name": "Minimums",                    "action": "SET FOR ARRIVAL",        "indicator": null },
+        { "number": "9",    "name": "Frequencies (NAV-COM)",       "action": "SET FOR ARRIVAL",        "indicator": null },
+        { "number": "10",   "name": "Ice Protection Systems",      "action": "AS REQUIRED",            "indicator": null },
+        { "number": "10.1", "name": "P/S and Stall heat / TKS",   "action": null,                     "indicator": null, "isSubItem": true },
+        { "number": "12",   "name": "No Smoke / Seat Belts",       "action": "ON",                     "indicator": null },
+        { "number": "13",   "name": "Vertical Nav (VNAV)",         "action": "SET AS REQUIRED",        "indicator": null },
+        { "number": "14",   "name": "Propeller RPM Lever",         "action": "MAX",                    "indicator": null },
+        { "number": "15",   "name": "Sterile Cockpit",             "action": "BEGIN",                  "indicator": null },
+        { "number": "16",   "name": "ATC Clearance",               "action": "CALL",                   "indicator": null }
+      ]
+    },
+    {
+      "id": "before-landing",
+      "title": "BEFORE LANDING",
+      "order": 14,
+      "group": "flight",
+      "badge": null,
+      "items": [
+        { "number": "1",   "name": "Oxygen",                       "action": "OFF",             "indicator": null },
+        { "number": "2",   "name": "Radar",                        "action": "STANDBY",         "indicator": null },
+        { "number": "3",   "name": "Ice Protection Systems",       "action": "AS REQUIRED",     "indicator": null },
+        { "number": "3.1", "name": "P/S and Stall heat / TKS",    "action": null,              "indicator": null, "isSubItem": true },
+        { "number": "4",   "name": "Inertial Separator",           "action": "AS REQUIRED",     "indicator": null },
+        { "number": "5",   "name": "Air Conditioning",             "action": "AS REQUIRED",     "indicator": null },
+        { "number": "6",   "name": "TAWS",                         "action": "AS REQUIRED",     "indicator": null },
+        { "number": "7",   "name": "Fuel Tank Selectors",          "action": "BOTH ON",         "indicator": null },
+        { "number": "8",   "name": "Flaps Selector",               "action": "SET FOR LANDING", "indicator": null },
+        { "number": "9",   "name": "FLIR",                         "action": "STOWED",          "indicator": "flir" },
+        { "number": "10",  "name": "Ignition Switch",              "action": "ON",              "indicator": null },
+        { "number": "11",  "name": "Lights (LDG or TAXI)",         "action": "SET",             "indicator": null }
+      ]
+    },
+    {
+      "id": "after-landing",
+      "title": "AFTER LANDING",
+      "order": 15,
+      "group": "flight",
+      "badge": null,
+      "items": [
+        { "number": "1", "name": "Flaps Selector",      "action": "UP",         "indicator": null },
+        { "number": "2", "name": "Lights",              "action": "AS REQUIRED","indicator": null },
+        { "number": "3", "name": "Standby PWR Switch",  "action": "OFF",        "indicator": null },
+        { "number": "4", "name": "Ignition Switch",     "action": "NORMAL",     "indicator": null },
+        { "number": "5", "name": "Inertial Separator",  "action": "AS REQUIRED","indicator": null },
+        { "number": "6", "name": "Air Conditioning",    "action": "VENTILATE",  "indicator": null },
+        { "number": "7", "name": "Fuel Condition Lever","action": "LOW IDLE",   "indicator": null }
+      ]
+    },
+    {
+      "id": "shutdown",
+      "title": "SHUTDOWN",
+      "order": 16,
+      "group": "flight",
+      "badge": null,
+      "items": [
+        { "number": "1",  "name": "Parking Brake",          "action": "SET",              "indicator": null },
+        { "number": "2",  "name": "Taxi Lights",            "action": "OFF",              "indicator": null },
+        { "number": "3",  "name": "Sterile Cockpit",        "action": "FINISH",           "indicator": null },
+        { "number": "4",  "name": "Radar",                  "action": "OFF",              "indicator": null },
+        { "number": "5",  "name": "Camillas AF/FW",         "action": "OFF",              "indicator": "medevac" },
+        { "number": "6",  "name": "FLIR (NEE console)",     "action": "OFF",              "indicator": "flir" },
+        { "number": "7",  "name": "ADM 2.0",                "action": "OFF",              "indicator": null },
+        { "number": "8",  "name": "Wheel Chocks",           "action": "SET",              "indicator": null },
+        { "number": "9",  "name": "Tail Support",           "action": "SET",              "indicator": null },
+        { "number": "10", "name": "Propeller RPM Lever",    "action": "FEATHER",          "indicator": null },
+        { "number": "11", "name": "Air Conditioning",       "action": "OFF",              "indicator": null },
+        { "number": "12", "name": "Fuel Condition Lever",   "action": "CUTOFF",           "indicator": null },
+        { "number": "13", "name": "Fuel Boost Switch",      "action": "OFF",              "indicator": null },
+        { "number": "14", "name": "Fuel Quantity",          "action": "VERIFY",           "indicator": null },
+        { "number": "15", "name": "ATC",                    "action": "REPORT ESTABLISH", "indicator": null },
+        { "number": "16", "name": "Fuel Tank Selectors",    "action": "OFF",              "indicator": null },
+        { "number": "17", "name": "Avionics 1 - 2",         "action": "OFF",              "indicator": null },
+        { "number": "18", "name": "Lights",                 "action": "OFF",              "indicator": null },
+        { "number": "19", "name": "All switches",           "action": "OFF",              "indicator": null },
+        { "number": "20", "name": "Battery switch",         "action": "OFF",              "indicator": null },
+        { "number": "21", "name": "Trims (x3)",             "action": "NEUTRAL",          "indicator": null },
+        { "number": "22", "name": "Propeller RPM Lever",    "action": "MAX",              "indicator": null },
+        { "number": "23", "name": "Parking Brake",          "action": "RELEASE",          "indicator": null },
+        { "number": "24", "name": "Quadrant Friction Lock", "action": "SECURE",           "indicator": null }
+      ]
+    },
+    {
+      "id": "securing",
+      "title": "SECURING",
+      "order": 17,
+      "group": "flight",
+      "badge": null,
+      "items": [
+        { "number": "1", "name": "Post-Flight",      "action": "COMPLETE",          "indicator": null },
+        { "number": "2", "name": "Plugs and Covers", "action": "SET",               "indicator": null },
+        { "number": "3", "name": "Control Lock",     "action": "SET",               "indicator": null },
+        { "number": "4", "name": "Airplane Book",    "action": "SIGN IN (PIL-COP-TTV)", "indicator": null }
+      ]
+    }
+  ]
+}

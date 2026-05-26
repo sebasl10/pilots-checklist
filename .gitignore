@@ -1,0 +1,22 @@
+# Dépendances
+node_modules/
+
+# Build
+dist/
+dist-ssr/
+
+# Vite
+*.local
+.vite/
+
+# Variables d'environnement
+.env
+.env.*
+!.env.example
+
+# Outils IA
+.agents/
+skills-lock.json
+
+# OS
+.DS_Store
