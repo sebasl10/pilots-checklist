@@ -6,10 +6,10 @@
   },
   "colorLegend": {
     "ext-pwr": { "label": "EXTERNAL PWR START ITEMS", "color": "#22C55E" },
-    "flir": { "label": "FLIR ITEMS", "color": "#EAB308" },
+    "flir": { "label": "FLIR ITEMS", "color": "#FACC15" },
     "medevac": { "label": "MEDEVAC ITEMS", "color": "#EF4444" },
     "ads80": { "label": "ADS-80 ITEMS", "color": "#3B82F6" },
-    "pbn": { "label": "PBN OPERATIONS ITEMS", "color": "#A855F7" }
+    "pbn": { "label": "PBN OPERATIONS ITEMS", "color": "#E0A3DC" }
   },
   "sections": [
     {
