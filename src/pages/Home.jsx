@@ -71,11 +71,8 @@ export default function Home() {
           </div>
         </div>
 
-        <p className="text-center text-[10px] text-slate-700 mt-3">
+        <p className="text-center text-[10px] text-slate-700 mt-3 pb-safe-bottom">
           © 2026 CT LAGUNA WILSON - LAKE
-        </p>
-        <p className="text-center text-[10px] text-slate-700 mt-1 pb-safe-bottom">
-          © {new Date().getFullYear()} NexAI. All rights reserved.
         </p>
       </main>
     </div>
