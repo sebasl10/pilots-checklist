@@ -1,16 +1,21 @@
 import { useParams, useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
-import { ChevronLeft } from 'lucide-react'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 import ChecklistItem from '../components/ChecklistItem'
 import data from '../data/checklist.json'
 
 const { sections, colorLegend } = data
 
+const orderedSections = [...sections].sort((a, b) => a.order - b.order)
+
 export default function SectionDetail() {
   const { id } = useParams()
   const navigate = useNavigate()
 
-  const section = sections.find(s => s.id === id)
+  const sectionIndex = orderedSections.findIndex(s => s.id === id)
+  const section = orderedSections[sectionIndex]
+  const prevSection = orderedSections[sectionIndex - 1]
+  const nextSection = orderedSections[sectionIndex + 1]
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' })
@@ -40,10 +45,9 @@ export default function SectionDetail() {
           <button
             onClick={() => navigate('/')}
             className="flex items-center gap-1 px-2 py-2 rounded-lg text-amber-400 active:bg-white/10 transition-colors min-w-[44px] min-h-[44px] justify-center"
-            aria-label="Volver al inicio"
+            aria-label="Volver al menú principal"
           >
             <ChevronLeft size={22} />
-            <span className="text-sm font-medium hidden sm:block">Volver</span>
           </button>
 
           <div className="flex-1 min-w-0">
@@ -107,7 +111,41 @@ export default function SectionDetail() {
         )}
       </main>
 
-      <div className="pb-safe-bottom pb-4" />
+      <nav className="sticky bottom-0 z-10 bg-[#0B1423]/95 backdrop-blur-sm border-t border-white/5 pb-safe-bottom">
+        <div className="max-w-2xl mx-auto grid grid-cols-2 gap-2 px-2 py-2">
+          {prevSection ? (
+            <button
+              onClick={() => navigate(`/section/${prevSection.id}`)}
+              className="flex items-center gap-1 px-2 min-h-[52px] rounded-lg text-left active:bg-white/10 transition-colors"
+              aria-label={`Sección anterior: ${prevSection.title}`}
+            >
+              <ChevronLeft size={22} className="text-amber-400 shrink-0" />
+              <span className="min-w-0">
+                <span className="block text-[10px] text-slate-500 uppercase tracking-widest">Anterior</span>
+                <span className="block text-[13px] font-semibold text-slate-100 uppercase truncate">{prevSection.title}</span>
+              </span>
+            </button>
+          ) : (
+            <div />
+          )}
+
+          {nextSection ? (
+            <button
+              onClick={() => navigate(`/section/${nextSection.id}`)}
+              className="flex items-center justify-end gap-1 px-2 min-h-[52px] rounded-lg text-right active:bg-white/10 transition-colors"
+              aria-label={`Sección siguiente: ${nextSection.title}`}
+            >
+              <span className="min-w-0">
+                <span className="block text-[10px] text-slate-500 uppercase tracking-widest">Siguiente</span>
+                <span className="block text-[13px] font-semibold text-slate-100 uppercase truncate">{nextSection.title}</span>
+              </span>
+              <ChevronRight size={22} className="text-amber-400 shrink-0" />
+            </button>
+          ) : (
+            <div />
+          )}
+        </div>
+      </nav>
     </div>
   )
 }
