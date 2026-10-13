@@ -1,8 +1,16 @@
 import { useParams, useNavigate } from 'react-router-dom'
-import { useEffect } from 'react'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { useEffect, useRef, useState } from 'react'
+import { ChevronLeft, ChevronRight, CircleCheck, RotateCcw } from 'lucide-react'
 import ChecklistItem from '../components/ChecklistItem'
 import data from '../data/checklist.json'
+import {
+  checkableItems,
+  resetSection,
+  sectionChecks,
+  sectionDoneCount,
+  toggleItem,
+  useProgress,
+} from '../lib/progress'
 
 const { sections, colorLegend } = data
 
@@ -17,9 +25,30 @@ export default function SectionDetail() {
   const prevSection = orderedSections[sectionIndex - 1]
   const nextSection = orderedSections[sectionIndex + 1]
 
+  const progress = useProgress()
+  const checks = section ? sectionChecks(progress, section) : []
+  const doneCount = checks.filter(Boolean).length
+  const currentIndex = checks.indexOf(false)
+
+  const [confirmingReset, setConfirmingReset] = useState(false)
+
+  // Al entrar en una sección: arriba, y luego hasta el ítem en curso si ya había progreso.
   useEffect(() => {
+    setConfirmingReset(false)
     window.scrollTo({ top: 0, behavior: 'instant' })
+    document.querySelector('[data-current]')?.scrollIntoView({ block: 'nearest', behavior: 'instant' })
   }, [id])
+
+  // Al marcar/desmarcar dentro de la misma sección: seguir el ítem en curso o el aviso de fin.
+  const lastRender = useRef({ id, doneCount })
+  useEffect(() => {
+    const changedInPlace = lastRender.current.id === id && lastRender.current.doneCount !== doneCount
+    lastRender.current = { id, doneCount }
+    if (!changedInPlace) return
+    document
+      .querySelector('[data-current], [data-section-complete]')
+      ?.scrollIntoView({ block: 'nearest', behavior: 'smooth' })
+  }, [id, doneCount])
 
   if (!section) {
     return (
@@ -36,7 +65,14 @@ export default function SectionDetail() {
   const badges = badge ? (Array.isArray(badge) ? badge : [badge]) : []
 
   const usedIndicators = [...new Set(items.map(i => i.indicator).filter(Boolean))]
-  const itemCount = items.filter(i => !i.isSubItem).length
+  const total = checkableItems(section).length
+  const isComplete = doneCount === total
+  const allSectionsComplete = orderedSections.every(
+    s => sectionDoneCount(progress, s) === checkableItems(s).length
+  )
+
+  let checkIndex = 0
+  const rows = items.map(item => ({ item, checkIndex: item.isSubItem ? null : checkIndex++ }))
 
   return (
     <div className="min-h-dvh flex flex-col">
@@ -77,13 +113,58 @@ export default function SectionDetail() {
             )}
           </div>
 
-          <span className="text-[11px] text-slate-600 shrink-0 pr-2">{itemCount} ítems</span>
+          <span
+            className={`text-[12px] font-semibold tabular-nums shrink-0 ${isComplete ? 'text-emerald-400' : 'text-slate-400'}`}
+          >
+            {doneCount}/{total}
+          </span>
+
+          <button
+            onClick={() => setConfirmingReset(c => !c)}
+            disabled={doneCount === 0}
+            className={`flex items-center justify-center min-w-[44px] min-h-[44px] rounded-lg transition-colors disabled:text-slate-700 ${confirmingReset ? 'bg-white/10 text-amber-400' : 'text-amber-400 active:bg-white/10'}`}
+            aria-label="Reiniciar sección"
+            aria-expanded={confirmingReset}
+          >
+            <RotateCcw size={18} />
+          </button>
+        </div>
+
+        {confirmingReset && (
+          <div className="flex items-center justify-between gap-3 px-4 pb-3">
+            <span className="text-[13px] text-red-300">¿Desmarcar los {doneCount} ítems de esta sección?</span>
+            <div className="flex items-center gap-2 shrink-0">
+              <button
+                onClick={() => setConfirmingReset(false)}
+                className="px-3 min-h-[44px] rounded-lg text-[13px] font-semibold text-slate-300 active:bg-white/10 transition-colors"
+              >
+                Cancelar
+              </button>
+              <button
+                onClick={() => {
+                  resetSection(id)
+                  setConfirmingReset(false)
+                }}
+                className="px-3 min-h-[44px] rounded-lg text-[13px] font-bold bg-red-500 text-white active:bg-red-600 transition-colors"
+              >
+                Reiniciar
+              </button>
+            </div>
+          </div>
+        )}
+        <div className="h-0.5 bg-white/5">
+          <div
+            className={`h-full transition-all duration-300 ${isComplete ? 'bg-emerald-500' : 'bg-amber-400'}`}
+            style={{ width: `${total ? (doneCount / total) * 100 : 0}%` }}
+          />
         </div>
       </header>
 
       <main className="flex-1 max-w-2xl mx-auto w-full">
         <div className="border-b border-white/5">
-          <div className="flex items-center px-4 py-2 gap-6">
+          <div className="flex items-center px-4 py-2 gap-3 border-l-[3px] border-l-transparent">
+            <span className="w-2 shrink-0" />
+            <span className="w-6 shrink-0" />
             <span className="text-[11px] font-bold text-slate-600 uppercase tracking-widest w-7 shrink-0">#</span>
             <span className="text-[11px] font-bold text-slate-600 uppercase tracking-widest flex-1">Elemento</span>
             <span className="text-[11px] font-bold text-slate-600 uppercase tracking-widest">Acción</span>
@@ -91,10 +172,51 @@ export default function SectionDetail() {
         </div>
 
         <div>
-          {items.map((item, idx) => (
-            <ChecklistItem key={`${item.number}-${idx}`} item={item} />
+          {rows.map(({ item, checkIndex }, idx) => (
+            <ChecklistItem
+              key={`${item.number}-${idx}`}
+              item={item}
+              status={checks[checkIndex] ? 'done' : checkIndex === currentIndex ? 'current' : 'locked'}
+              onToggle={() => toggleItem(section, checkIndex)}
+            />
           ))}
         </div>
+
+        {isComplete && (
+          <div
+            data-section-complete
+            className="mx-4 mt-6 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 scroll-mb-28"
+          >
+            <div className="flex items-center gap-2 text-emerald-400">
+              <CircleCheck size={20} />
+              <span className="text-sm font-bold uppercase tracking-wider">
+                {!nextSection && allSectionsComplete ? 'Lista de verificación completa' : 'Sección completa'}
+              </span>
+            </div>
+
+            {nextSection ? (
+              <button
+                onClick={() => navigate(`/section/${nextSection.id}`)}
+                className="mt-3 w-full flex items-center justify-between gap-2 px-4 min-h-[52px] rounded-lg bg-amber-400 text-[#0B1423] font-bold uppercase tracking-wide active:bg-amber-500 transition-colors"
+              >
+                <span className="truncate">Siguiente: {nextSection.title}</span>
+                <ChevronRight size={22} className="shrink-0" />
+              </button>
+            ) : (
+              <>
+                {!allSectionsComplete && (
+                  <p className="mt-1 text-[13px] text-slate-400">Quedan secciones pendientes en el menú.</p>
+                )}
+                <button
+                  onClick={() => navigate('/')}
+                  className="mt-3 w-full flex items-center justify-center gap-2 px-4 min-h-[52px] rounded-lg bg-amber-400 text-[#0B1423] font-bold uppercase tracking-wide active:bg-amber-500 transition-colors"
+                >
+                  Volver al menú
+                </button>
+              </>
+            )}
+          </div>
+        )}
 
         {usedIndicators.length > 0 && (
           <div className="mx-4 my-6 p-4 rounded-xl bg-[#111D33] border border-white/5">
