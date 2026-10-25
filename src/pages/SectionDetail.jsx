@@ -2,7 +2,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { useEffect, useRef, useState } from 'react'
 import { ChevronLeft, ChevronRight, CircleCheck, RotateCcw } from 'lucide-react'
 import ChecklistItem from '../components/ChecklistItem'
-import data from '../data/checklist.json'
+import { useChecklist } from '../lib/checklistContext'
 import {
   checkableItems,
   resetSection,
@@ -12,20 +12,21 @@ import {
   useProgress,
 } from '../lib/progress'
 
-const { sections, colorLegend } = data
-
-const orderedSections = [...sections].sort((a, b) => a.order - b.order)
-
 export default function SectionDetail() {
   const { id } = useParams()
   const navigate = useNavigate()
+  const { meta, sections, colorLegend } = useChecklist()
+  const home = `/${meta.id}`
+  const sectionPath = sectionId => `${home}/section/${sectionId}`
+
+  const orderedSections = [...sections].sort((a, b) => a.order - b.order)
 
   const sectionIndex = orderedSections.findIndex(s => s.id === id)
   const section = orderedSections[sectionIndex]
   const prevSection = orderedSections[sectionIndex - 1]
   const nextSection = orderedSections[sectionIndex + 1]
 
-  const progress = useProgress()
+  const progress = useProgress(meta.id)
   const checks = section ? sectionChecks(progress, section) : []
   const doneCount = checks.filter(Boolean).length
   const currentIndex = checks.indexOf(false)
@@ -54,7 +55,7 @@ export default function SectionDetail() {
     return (
       <div className="min-h-dvh flex flex-col items-center justify-center gap-4">
         <p className="text-slate-400">Sección no encontrada.</p>
-        <button onClick={() => navigate('/')} className="text-amber-400 text-sm font-semibold">
+        <button onClick={() => navigate(home)} className="text-amber-400 text-sm font-semibold">
           ← Volver
         </button>
       </div>
@@ -79,7 +80,7 @@ export default function SectionDetail() {
       <header className="sticky top-0 z-10 bg-[#0B1423]/95 backdrop-blur-sm border-b border-white/5 pt-safe-top">
         <div className="flex items-center gap-3 px-2 py-3">
           <button
-            onClick={() => navigate('/')}
+            onClick={() => navigate(home)}
             className="flex items-center gap-1 px-2 py-2 rounded-lg text-amber-400 active:bg-white/10 transition-colors min-w-[44px] min-h-[44px] justify-center"
             aria-label="Volver al menú principal"
           >
@@ -142,7 +143,7 @@ export default function SectionDetail() {
               </button>
               <button
                 onClick={() => {
-                  resetSection(id)
+                  resetSection(meta.id, id)
                   setConfirmingReset(false)
                 }}
                 className="px-3 min-h-[44px] rounded-lg text-[13px] font-bold bg-red-500 text-white active:bg-red-600 transition-colors"
@@ -177,7 +178,7 @@ export default function SectionDetail() {
               key={`${item.number}-${idx}`}
               item={item}
               status={checks[checkIndex] ? 'done' : checkIndex === currentIndex ? 'current' : 'locked'}
-              onToggle={() => toggleItem(section, checkIndex)}
+              onToggle={() => toggleItem(meta.id, section, checkIndex)}
             />
           ))}
         </div>
@@ -196,7 +197,7 @@ export default function SectionDetail() {
 
             {nextSection ? (
               <button
-                onClick={() => navigate(`/section/${nextSection.id}`)}
+                onClick={() => navigate(sectionPath(nextSection.id))}
                 className="mt-3 w-full flex items-center justify-between gap-2 px-4 min-h-[52px] rounded-lg bg-amber-400 text-[#0B1423] font-bold uppercase tracking-wide active:bg-amber-500 transition-colors"
               >
                 <span className="truncate">Siguiente: {nextSection.title}</span>
@@ -208,7 +209,7 @@ export default function SectionDetail() {
                   <p className="mt-1 text-[13px] text-slate-400">Quedan secciones pendientes en el menú.</p>
                 )}
                 <button
-                  onClick={() => navigate('/')}
+                  onClick={() => navigate(home)}
                   className="mt-3 w-full flex items-center justify-center gap-2 px-4 min-h-[52px] rounded-lg bg-amber-400 text-[#0B1423] font-bold uppercase tracking-wide active:bg-amber-500 transition-colors"
                 >
                   Volver al menú
@@ -237,7 +238,7 @@ export default function SectionDetail() {
         <div className="max-w-2xl mx-auto grid grid-cols-2 gap-2 px-2 py-2">
           {prevSection ? (
             <button
-              onClick={() => navigate(`/section/${prevSection.id}`)}
+              onClick={() => navigate(sectionPath(prevSection.id))}
               className="flex items-center gap-1 px-2 min-h-[52px] rounded-lg text-left active:bg-white/10 transition-colors"
               aria-label={`Sección anterior: ${prevSection.title}`}
             >
@@ -253,7 +254,7 @@ export default function SectionDetail() {
 
           {nextSection ? (
             <button
-              onClick={() => navigate(`/section/${nextSection.id}`)}
+              onClick={() => navigate(sectionPath(nextSection.id))}
               className="flex items-center justify-end gap-1 px-2 min-h-[52px] rounded-lg text-right active:bg-white/10 transition-colors"
               aria-label={`Sección siguiente: ${nextSection.title}`}
             >

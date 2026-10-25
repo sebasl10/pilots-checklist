@@ -1,11 +1,10 @@
 import { Check } from 'lucide-react'
-import data from '../data/checklist.json'
-
-const { colorLegend } = data
+import { useChecklist } from '../lib/checklistContext'
 
 // status: 'done' | 'current' | 'locked'
 // Un ítem marcado se desmarca con un segundo toque.
 export default function ChecklistItem({ item, status, onToggle }) {
+  const { colorLegend } = useChecklist()
   const { number, name, action, indicator, isSubItem } = item
 
   const indicatorColor = indicator ? colorLegend[indicator]?.color : null
