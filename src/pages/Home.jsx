@@ -1,13 +1,9 @@
 import { useState } from 'react'
-import { RotateCcw, Shield } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
+import { ChevronLeft, RotateCcw } from 'lucide-react'
 import SectionCard from '../components/SectionCard'
-import data from '../data/checklist.json'
-import { checkableItems, resetProgress, sectionDoneCount, useProgress } from '../lib/progress'
-
-const { meta, sections, colorLegend } = data
-
-const preflight = sections.filter(s => s.group === 'preflight')
-const flight = sections.filter(s => s.group === 'flight')
+import { useChecklist } from '../lib/checklistContext'
+import { checklistTotals, resetProgress, useProgress } from '../lib/progress'
 
 function GroupLabel({ label, count }) {
   return (
@@ -20,12 +16,11 @@ function GroupLabel({ label, count }) {
 }
 
 function FlightProgress() {
-  const progress = useProgress()
+  const checklist = useChecklist()
+  const progress = useProgress(checklist.meta.id)
   const [confirming, setConfirming] = useState(false)
 
-  const total = sections.reduce((n, s) => n + checkableItems(s).length, 0)
-  const done = sections.reduce((n, s) => n + sectionDoneCount(progress, s), 0)
-  const sectionsDone = sections.filter(s => sectionDoneCount(progress, s) === checkableItems(s).length).length
+  const { total, done, sectionsDone } = checklistTotals(progress, checklist)
   const isComplete = done === total
 
   return (
@@ -46,7 +41,7 @@ function FlightProgress() {
 
       <div className="mt-3 flex items-center justify-between gap-3">
         <span className="text-[12px] text-slate-500">
-          {sectionsDone}/{sections.length} secciones completas
+          {sectionsDone}/{checklist.sections.length} secciones completas
         </span>
 
         {confirming ? (
@@ -59,7 +54,7 @@ function FlightProgress() {
             </button>
             <button
               onClick={() => {
-                resetProgress()
+                resetProgress(checklist.meta.id)
                 setConfirming(false)
               }}
               className="px-3 min-h-[44px] rounded-lg text-[13px] font-bold bg-red-500 text-white active:bg-red-600 transition-colors"
@@ -80,29 +75,37 @@ function FlightProgress() {
       </div>
 
       {confirming && (
-        <p className="mt-1 text-[12px] text-red-300">Se borrará el progreso de todas las secciones.</p>
+        <p className="mt-1 text-[12px] text-red-300">
+          Se borrará el progreso de todas las secciones del {checklist.meta.aircraft}.
+        </p>
       )}
     </div>
   )
 }
 
 export default function Home() {
+  const navigate = useNavigate()
+  const { meta, sections, colorLegend } = useChecklist()
+
+  const preflight = sections.filter(s => s.group === 'preflight')
+  const flight = sections.filter(s => s.group === 'flight')
+
   return (
     <div className="min-h-dvh flex flex-col">
       <header className="sticky top-0 z-10 bg-[#0B1423]/95 backdrop-blur-sm border-b border-white/5 pt-safe-top">
-        <div className="px-4 py-4 flex items-center gap-3">
-          <div className="relative flex items-center justify-center w-10 h-10 rounded-xl bg-[#1E3A5F] border border-amber-500/30 shrink-0">
-            <Shield size={20} className="text-amber-400" />
-          </div>
+        <div className="px-2 py-3 flex items-center gap-3">
+          <button
+            onClick={() => navigate('/')}
+            className="flex items-center justify-center px-2 py-2 rounded-lg text-amber-400 active:bg-white/10 transition-colors min-w-[44px] min-h-[44px]"
+            aria-label="Cambiar de aeronave"
+          >
+            <ChevronLeft size={22} />
+          </button>
           <div>
-            <h1 className="text-base font-bold text-slate-100 tracking-wide leading-tight">
-              C-208B G-1000
-            </h1>
-            <p className="text-[11px] text-slate-500 tracking-widest uppercase">
-              Lista de Verificación · FAC
-            </p>
+            <h1 className="text-base font-bold text-slate-100 tracking-wide leading-tight">{meta.aircraft}</h1>
+            <p className="text-[11px] text-slate-500 tracking-widest uppercase">Lista de Verificación · FAC</p>
           </div>
-          <div className="ml-auto text-right">
+          <div className="ml-auto text-right pr-2">
             <p className="text-[10px] text-slate-600 leading-snug">{meta.revision}</p>
             <p className="text-[10px] text-slate-600 leading-snug">{meta.od}</p>
           </div>

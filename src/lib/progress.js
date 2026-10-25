@@ -1,9 +1,12 @@
 import { useSyncExternalStore } from 'react'
 
-// Progreso guardado por sección: { [sectionId]: índices de los ítems marcados }.
+// Progreso guardado por aeronave y sección:
+// { [aircraftId]: { [sectionId]: índices de los ítems marcados } }.
 // Los índices cuentan solo los ítems marcables (sin sub-ítems).
-const STORAGE_KEY = 'checklist-progress-v1'
+// v2: la Rev. 20 cambió los ítems del G-1000, así que el progreso de v1 no se reutiliza.
+const STORAGE_KEY = 'checklist-progress-v2'
 
+const EMPTY = {}
 const listeners = new Set()
 
 function load() {
@@ -32,8 +35,16 @@ function subscribe(listener) {
   return () => listeners.delete(listener)
 }
 
-export function useProgress() {
-  return useSyncExternalStore(subscribe, () => progress)
+function aircraftProgress(aircraftId) {
+  return progress[aircraftId] ?? EMPTY
+}
+
+function saveAircraft(aircraftId, sectionsProgress) {
+  save({ ...progress, [aircraftId]: sectionsProgress })
+}
+
+export function useProgress(aircraftId) {
+  return useSyncExternalStore(subscribe, () => aircraftProgress(aircraftId))
 }
 
 export function checkableItems(section) {
@@ -44,12 +55,12 @@ export function checkableItems(section) {
 export function sectionChecks(progressMap, section) {
   const total = checkableItems(section).length
   const stored = progressMap[section.id]
-  // Versión anterior: se guardaba solo el número de ítems marcados desde el inicio.
-  const indices = Array.isArray(stored) ? stored : Array.from({ length: Number(stored) || 0 }, (_, i) => i)
   const checks = Array(total).fill(false)
-  indices.forEach(i => {
-    if (Number.isInteger(i) && i >= 0 && i < total) checks[i] = true
-  })
+  if (Array.isArray(stored)) {
+    stored.forEach(i => {
+      if (Number.isInteger(i) && i >= 0 && i < total) checks[i] = true
+    })
+  }
   return checks
 }
 
@@ -57,21 +68,31 @@ export function sectionDoneCount(progressMap, section) {
   return sectionChecks(progressMap, section).filter(Boolean).length
 }
 
+export function checklistTotals(progressMap, checklist) {
+  const { sections } = checklist
+  const total = sections.reduce((n, s) => n + checkableItems(s).length, 0)
+  const done = sections.reduce((n, s) => n + sectionDoneCount(progressMap, s), 0)
+  const sectionsDone = sections.filter(s => sectionDoneCount(progressMap, s) === checkableItems(s).length).length
+  return { total, done, sectionsDone }
+}
+
 // Orden estricto: solo se puede marcar el primer ítem sin marcar.
 // Desmarcar un ítem desmarca también todos los que le siguen.
-export function toggleItem(section, index) {
-  const checks = sectionChecks(progress, section)
+export function toggleItem(aircraftId, section, index) {
+  const current = aircraftProgress(aircraftId)
+  const checks = sectionChecks(current, section)
   if (checks[index]) checks.fill(false, index)
   else if (index === checks.indexOf(false)) checks[index] = true
   else return
-  save({ ...progress, [section.id]: checks.flatMap((checked, i) => (checked ? [i] : [])) })
+  saveAircraft(aircraftId, { ...current, [section.id]: checks.flatMap((checked, i) => (checked ? [i] : [])) })
 }
 
-export function resetSection(sectionId) {
-  const { [sectionId]: _removed, ...rest } = progress
+export function resetSection(aircraftId, sectionId) {
+  const { [sectionId]: _removed, ...rest } = aircraftProgress(aircraftId)
+  saveAircraft(aircraftId, rest)
+}
+
+export function resetProgress(aircraftId) {
+  const { [aircraftId]: _removed, ...rest } = progress
   save(rest)
-}
-
-export function resetProgress() {
-  save({})
 }

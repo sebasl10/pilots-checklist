@@ -1,9 +1,7 @@
 import { Check, ChevronRight } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
-import data from '../data/checklist.json'
+import { useChecklist } from '../lib/checklistContext'
 import { checkableItems, sectionDoneCount, useProgress } from '../lib/progress'
-
-const { colorLegend } = data
 
 const GROUP_ICONS = {
   preflight: '✈',
@@ -12,9 +10,10 @@ const GROUP_ICONS = {
 
 export default function SectionCard({ section }) {
   const navigate = useNavigate()
+  const { meta, colorLegend } = useChecklist()
   const { id, title, subtitle, order, badge, group } = section
 
-  const progress = useProgress()
+  const progress = useProgress(meta.id)
   const total = checkableItems(section).length
   const doneCount = sectionDoneCount(progress, section)
   const isComplete = doneCount === total
@@ -22,7 +21,7 @@ export default function SectionCard({ section }) {
 
   return (
     <button
-      onClick={() => navigate(`/section/${id}`)}
+      onClick={() => navigate(`/${meta.id}/section/${id}`)}
       className="w-full text-left flex items-center gap-4 px-4 py-4 rounded-xl bg-[#111D33] border border-white/5 active:scale-[0.98] transition-all duration-150 hover:border-amber-500/30 hover:bg-[#152240] group"
     >
       {isComplete ? (
